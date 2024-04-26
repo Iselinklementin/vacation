@@ -19,7 +19,7 @@ namespace vacationApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     NumDays = table.Column<int>(type: "INTEGER", nullable: false),
-                    CountryCode = table.Column<string>(type: "TEXT", nullable: false)
+                    CountryCode = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

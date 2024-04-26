@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace EmployeeApi.Models
@@ -37,5 +38,7 @@ namespace EmployeeApi.Models
         public DateTime Date { get; set; }
         public string? CountryCode { get; set; }
         public string? Name { get; set; }
+        [JsonIgnore]
+        public Country? Country { get; set; }
     }
 }

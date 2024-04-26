@@ -11,31 +11,23 @@ namespace vacationApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class EmployeesController(EmployeeContext context) : ControllerBase
     {
-        private readonly EmployeeContext _context;
-
-        public EmployeesController(EmployeeContext context)
-        {
-            _context = context;
-        }
+        private readonly EmployeeContext _context = context;
 
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees(DbContextOptions<EmployeeContext> options)
-        {
-            using (var context = new EmployeeContext(options))
-            {
-                // Legg til en ny oppføring i databasen
-                var newEntity = new Employee { Name = "Test" };
-                context.Employees.Add(newEntity);
-                await context.SaveChangesAsync(); // Bruk SaveChangesAsync for å lagre endringer asynkront
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+   {
+        // Hent alle ansatte fra databasen inkludert relaterte data
+            var employees = await _context.Employees
+            .Include(e => e.VacationEntries)  // Inkluderer VacationEntries-relasjonen
+            .Include(e => e.Country)  // Inkluderer Country-relasjonen
+                .ThenInclude(c => c.Holidays)  // Inkluderer Holidays-egenskapen til Country
+            .ToListAsync();
 
-                // Hent alle ansatte fra databasen og returner dem
-                var employees = await context.Employees.ToListAsync();
-                return employees;
-            }
-        }
+            return employees;
+    }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
