@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/iselinhaugen/oppgave/vacationApi/vacationApi.csproj": {}
+    "/Users/iselinhaugen/Documents/GitHub/vacation/vacationApi/vacationApi.csproj": {}
   },
   "projects": {
-    "/Users/iselinhaugen/oppgave/vacationApi/vacationApi.csproj": {
+    "/Users/iselinhaugen/Documents/GitHub/vacation/vacationApi/vacationApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/iselinhaugen/oppgave/vacationApi/vacationApi.csproj",
+        "projectUniqueName": "/Users/iselinhaugen/Documents/GitHub/vacation/vacationApi/vacationApi.csproj",
         "projectName": "vacationApi",
-        "projectPath": "/Users/iselinhaugen/oppgave/vacationApi/vacationApi.csproj",
+        "projectPath": "/Users/iselinhaugen/Documents/GitHub/vacation/vacationApi/vacationApi.csproj",
         "packagesPath": "/Users/iselinhaugen/.nuget/packages/",
-        "outputPath": "/Users/iselinhaugen/oppgave/vacationApi/obj/",
+        "outputPath": "/Users/iselinhaugen/Documents/GitHub/vacation/vacationApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/iselinhaugen/.nuget/NuGet/NuGet.Config"

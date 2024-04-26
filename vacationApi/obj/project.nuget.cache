@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i1PoisgcHoBPWG+st8OHl5l6AliYQU1CNRefz+PSXB5NQUL1GorCQWaTppbERuYlKPWEmzX3zbxVWZ+dmiegOw==",
+  "dgSpecHash": "/U1tOxE+IzFRys6W4QgMBn9ZQQwFI8GgSCLx9IjKD8XHXM2mGTI0aZpSeqAQUUdQGvibVJ//XahsKbPEtmCSMw==",
   "success": true,
-  "projectFilePath": "/Users/iselinhaugen/oppgave/vacationApi/vacationApi.csproj",
+  "projectFilePath": "/Users/iselinhaugen/Documents/GitHub/vacation/vacationApi/vacationApi.csproj",
   "expectedPackageFiles": [
     "/Users/iselinhaugen/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/iselinhaugen/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
