@@ -19,7 +19,7 @@ namespace EmployeeApi.Models
         public long Id { get; set; }
         public string? Name { get; set; }
         public int NumDays { get; set; }
-        public string? CountryCode { get; set; } // Tillater null-verdier
+        public string? CountryCode { get; set; }
         public List<Holidays> Holidays { get; set; } = new List<Holidays>();
     }
 
