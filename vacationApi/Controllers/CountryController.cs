@@ -21,8 +21,12 @@ namespace EmployeeApi.Controllers
          // GET: api/Country
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Country>>> GetCountry()
+
         {
-            return await _context.Country.ToListAsync();
+       var countries = await _context.Country
+              .Include(e => e.Holidays)  // Inkluderer Country-relasjonen
+            .ToListAsync();
+            return countries;
         }
 
         // GET: api/Country/5

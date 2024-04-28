@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace EmployeeApi.Models
 {
 public class Country
@@ -9,12 +11,13 @@ public class Country
         public List<Holidays> Holidays { get; set; } = new List<Holidays>();
     }
 
-        public class Holidays
-    {
-        public long Id { get; set; }
-        public DateTime Date { get; set; }
-        public string? CountryCode { get; set; }
-        public string? Name { get; set; }
-        public Country? Country { get; set; }
-    }
+public class Holidays
+{
+    public long Id { get; set; }
+    public DateTime Date { get; set; }
+    public string? Name { get; set; }
+
+    [ForeignKey("Country")]
+    public string? CountryCode { get; set; }
+}
 }
