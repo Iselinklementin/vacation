@@ -22,8 +22,8 @@ namespace vacationApi.Controllers
         // Hent alle ansatte fra databasen inkludert relaterte data
             var employees = await _context.Employees
             .Include(e => e.VacationEntries)  // Inkluderer VacationEntries-relasjonen
-            .Include(e => e.Country)  // Inkluderer Country-relasjonen
-                .ThenInclude(c => c.Holidays)  // Inkluderer Holidays-egenskapen til Country
+  /*           .Include(e => e.Country)  // Inkluderer Country-relasjonen
+                .ThenInclude(c => c.Holidays)  // Inkluderer Holidays-egenskapen til Country */
             .ToListAsync();
 
             return employees;

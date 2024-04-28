@@ -25,6 +25,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<EmployeeContext>(options =>
     options.UseSqlite(connectionString));
+    
+builder.Services.AddDbContext<CountryContext>(options =>
+options.UseSqlite(connectionString));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
