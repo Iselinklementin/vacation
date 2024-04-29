@@ -1,0 +1,31 @@
+.burgermenu-wrapper {
+  background: #b4e0d1;
+}
+
+.burgermenu-wrapper p {
+  margin: 12px 0 12px 10px;
+}
+
+.menu-icons .profile-picture picture {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.menu-icons .profile-picture picture img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.menu-icons .menu-icon {
+  background: #b4e0d1;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.breadcrumbs p {
+  font-size: 14px;
+}
+/*# sourceMappingURL=menu.css.map */

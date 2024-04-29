@@ -1,0 +1,122 @@
+.container {
+  max-width: 1200px;
+  margin: auto;
+  text-align: left;
+}
+
+.burgermenu-wrapper {
+  background: #b4e0d1;
+}
+
+.burgermenu-wrapper p {
+  margin: 12px 0 12px 10px;
+}
+
+.menu-icons .profile-picture picture {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.menu-icons .profile-picture picture img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.menu-icons .menu-icon {
+  background: #b4e0d1;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.breadcrumbs p {
+  font-size: 14px;
+}
+
+.p-tabview .p-tabview-nav {
+  width: fit-content;
+  background: transparent;
+}
+
+.p-tabview .p-tabview-nav-content ul {
+  background: white;
+  border-radius: 30px;
+  height: 34.9px;
+  border: black solid thin;
+}
+
+.p-tabview .p-tabview-nav-content ul a {
+  border-radius: 0;
+  font-size: 14px;
+}
+
+.p-tabview .p-tabview-nav-content ul li:nth-child(1) a {
+  border-radius: 30px 0 0 30px;
+}
+
+.p-tabview .p-tabview-nav-content ul li:nth-child(3) a {
+  border-radius: 0 30px 30px 0;
+}
+
+.p-tabview .p-tabview-nav-content ul .p-highlight .p-tabview-nav-link {
+  background-color: #b4e0d1;
+  color: black;
+  border-radius: 30px;
+}
+
+.p-tabview .p-tabview-nav-content ul .p-tabview-nav-link {
+  color: black;
+  min-width: 130px;
+  transition: none;
+  height: 33px;
+}
+
+.p-tabview .p-tabview-nav-content ul .p-tabview-nav-link span {
+  width: 100%;
+  text-align: center;
+}
+
+.p-tabview .p-tabview-nav-content ul .p-tabview-ink-bar {
+  display: none;
+}
+
+.p-tabview-panels {
+  margin-top: 2rem;
+}
+
+.register-vacation-button {
+  background: #01332a;
+  border-color: #01332a;
+  color: #b4e0d1;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.register-vacation-button i {
+  font-size: 0.8rem;
+}
+
+.p-accordion-content,
+.p-accordion-header-link {
+  background-color: #f5f5f5;
+}
+
+.p-accordion-content {
+  margin-bottom: 2rem;
+}
+
+.vacation-results .p-accordion-content,
+.vacation-results .p-accordion-header-link {
+  background-color: white;
+}
+
+.link-color {
+  color: #4a9179;
+}
+
+i {
+  font-size: 1rem;
+}
+/*# sourceMappingURL=styles.css.map */

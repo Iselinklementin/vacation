@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAC;EACV,KAAK,EAAE,OAAO;CACf;;AAED,AAAA,CAAC,CAAC;EACA,SAAS,EAAE,IAAI;CAChB",
+    "sources": [
+        "../avonova/src/assets/styles/global.scss"
+    ],
+    "names": [],
+    "file": "global.css"
+}
