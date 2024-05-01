@@ -105,8 +105,13 @@ namespace vacationApi.Controllers
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+      public async Task<IActionResult> PostEmployee(Employee employee)
         {
+            if (employee == null)
+            {
+                return BadRequest("Employee data is required.");
+            }
+
             try
             {
                 _context.Employees.Add(employee);

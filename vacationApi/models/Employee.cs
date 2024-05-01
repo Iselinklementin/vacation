@@ -10,15 +10,13 @@ namespace EmployeeApi.Models
     public class Employee
     {
    
-        public long Id { get; set; }
+     public long Id { get; set; }
         public string? Name { get; set; }
         public int Remaining { get; set; }
         public string? CountryCode { get; set; }
         public List<VacationEntry> VacationEntries { get; set; } = new List<VacationEntry>();
       
-        [Timestamp]
-        [ValidTimestamp]
-        public byte[]? Timestamp { get; set; }
+        public DateTime[]? Timestamp { get; set; }
         
     }
 

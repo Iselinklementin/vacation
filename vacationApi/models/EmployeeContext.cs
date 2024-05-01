@@ -11,13 +11,13 @@ public class EmployeeContext : DbContext
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Country> Country { get; set; }
     public DbSet<Holidays> Holidays { get; set; }
-  
+   
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=mydatabase.db");
     }
-    
-     protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Employee>()
             .Property(e => e.Timestamp)
