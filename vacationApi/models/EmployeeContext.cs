@@ -12,7 +12,6 @@ public class EmployeeContext : DbContext
     public DbSet<Country> Country { get; set; }
     public DbSet<Holidays> Holidays { get; set; }
   
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=mydatabase.db");

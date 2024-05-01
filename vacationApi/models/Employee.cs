@@ -17,6 +17,7 @@ namespace EmployeeApi.Models
         public List<VacationEntry> VacationEntries { get; set; } = new List<VacationEntry>();
       
         [Timestamp]
+        [ValidTimestamp]
         public byte[]? Timestamp { get; set; }
         
     }

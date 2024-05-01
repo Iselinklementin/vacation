@@ -30,7 +30,9 @@ namespace vacationApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(long id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await _context.Employees
+                .Include(e => e.VacationEntries) 
+                .FirstOrDefaultAsync(e => e.Id == id);
 
             if (employee == null)
             {
@@ -105,11 +107,19 @@ namespace vacationApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Employees.Add(employee);
+                await _context.SaveChangesAsync();
 
-            // return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
-            return CreatedAtAction(nameof(GetEmployee), new { id = employee.Id }, employee);
+                return CreatedAtAction(nameof(GetEmployee), new { id = employee.Id }, employee);
+            }
+            catch (Exception ex)
+            {
+                // Logg unntaket eller utfør annen håndtering her
+                Console.WriteLine($"Feil oppsto ved lagring av Employee: {ex.Message}");
+                return StatusCode(500, "En feil oppstod ved lagring av Employee-data.");
+            }
         }
 
         // DELETE: api/Employees/5
