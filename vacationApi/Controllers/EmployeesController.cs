@@ -19,11 +19,8 @@ namespace vacationApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
    {
-        // Hent alle ansatte fra databasen inkludert relaterte data
             var employees = await _context.Employees
-            .Include(e => e.VacationEntries)  // Inkluderer VacationEntries-relasjonen
-  /*           .Include(e => e.Country)  // Inkluderer Country-relasjonen
-                .ThenInclude(c => c.Holidays)  // Inkluderer Holidays-egenskapen til Country */
+            .Include(e => e.VacationEntries) 
             .ToListAsync();
 
             return employees;
@@ -45,15 +42,45 @@ namespace vacationApi.Controllers
 
         // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(long id, Employee employee)
+        
+       [HttpPut("{id}")]
+        public async Task<IActionResult> PutEmployee(long id, Employee updatedEmployee)
         {
-            if (id != employee.Id)
+            if (id != updatedEmployee.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            var existingEmployee = await _context.Employees
+                                                .Include(e => e.VacationEntries)
+                                                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (existingEmployee == null)
+            {
+                return NotFound();
+            }
+
+            // Oppdater ansattens egenskaper
+            existingEmployee.Name = updatedEmployee.Name;
+            existingEmployee.Remaining = updatedEmployee.Remaining;
+            existingEmployee.CountryCode = updatedEmployee.CountryCode;
+
+            // Oppdater eller legg til ferieoppføringer
+            foreach (var updatedEntry in updatedEmployee.VacationEntries)
+            {
+                var existingEntry = existingEmployee.VacationEntries.FirstOrDefault(e => e.Id == updatedEntry.Id);
+
+                if (existingEntry != null)
+                {
+                    // Oppdater ferieoppføringens egenskaper
+                    _context.Entry(existingEntry).CurrentValues.SetValues(updatedEntry);
+                }
+                else
+                {
+                    // Legg til ny ferieoppføring i den eksisterende ansatte
+                    existingEmployee.VacationEntries.Add(updatedEntry);
+                }
+            }
 
             try
             {
@@ -73,7 +100,6 @@ namespace vacationApi.Controllers
 
             return NoContent();
         }
-
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

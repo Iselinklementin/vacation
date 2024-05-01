@@ -6,7 +6,8 @@
         "../avonova/src/assets/styles/container.scss",
         "../avonova/src/assets/styles/menu.scss",
         "../avonova/src/assets/styles/accordion.scss",
-        "../avonova/src/assets/styles/global.scss"
+        "../avonova/src/assets/styles/global.scss",
+        "../avonova/src/assets/styles/modal.scss"
     ],
     "names": [],
     "file": "styles.css"
