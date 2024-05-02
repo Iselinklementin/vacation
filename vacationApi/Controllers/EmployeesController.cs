@@ -100,7 +100,8 @@ namespace vacationApi.Controllers
                 }
             }
 
-            return NoContent();
+            /* return NoContent(); */
+            return Ok(existingEmployee);
         }
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

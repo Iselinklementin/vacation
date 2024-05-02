@@ -5,4 +5,47 @@
 i {
   font-size: 1rem;
 }
+
+button {
+  padding: 6px 16px;
+  background: #01332a;
+  border-color: #01332a;
+  color: #b4e0d1;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+button i {
+  margin-right: 5px;
+  font-size: 0.8rem;
+}
+
+button:disabled {
+  opacity: 0.8;
+}
+
+.btn-outlined {
+  background: transparent;
+  color: #01332a;
+}
+
+.error {
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+}
+
+.error p {
+  color: #db3232;
+  margin-top: 0;
+}
+
+.success {
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+}
+
+.success p {
+  color: #379c37;
+  margin-top: 0;
+}
 /*# sourceMappingURL=global.css.map */

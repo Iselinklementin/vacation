@@ -27,4 +27,46 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
+.modal-mask .modal-container .modal-body {
+  width: 100%;
+  background: #eee;
+  border-radius: 6px;
+  text-align: left;
+  padding: 2rem;
+}
+
+.modal-mask .modal-container .modal-body .form-input-wrapper {
+  margin: 25px 0;
+}
+
+.modal-mask .modal-container .modal-body .form-input-wrapper label {
+  margin-bottom: 1rem;
+}
+
+.modal-mask .modal-container .modal-body .form-input-wrapper input {
+  width: 200px;
+}
+
+.modal-mask .modal-container .modal-body .form-input-wrapper .dp__input_wrap {
+  width: 200px;
+}
+
+.calendar-container {
+  position: relative;
+}
+
+.calendar-container i {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.selectEmployeeContainer {
+  position: relative;
+}
+
+.selectEmployeeContainer .selectEmployee {
+  position: absolute;
+}
 /*# sourceMappingURL=modal.css.map */
