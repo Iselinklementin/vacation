@@ -25,6 +25,6 @@ namespace EmployeeApi.Models
         public long Id { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
-        public bool Approved { get; set; }
+        public string? Status { get; set; }
     }
 }
