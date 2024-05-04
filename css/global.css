@@ -48,4 +48,47 @@ button:disabled {
   color: #379c37;
   margin-top: 0;
 }
+
+.status {
+  width: fit-content;
+  padding: 0px 7px;
+  border-radius: 6px;
+  height: 20px;
+  line-height: 1.4;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.pending {
+  background: orange;
+  color: black;
+}
+
+.approved {
+  background: green;
+  color: white;
+}
+
+.rejected {
+  background: red;
+  color: white;
+}
+
+.pi-pencil {
+  margin-right: 15px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table thead {
+  background: #f2f2f2;
+  line-height: 2;
+}
+
+table tbody tr {
+  line-height: 2;
+}
 /*# sourceMappingURL=global.css.map */

@@ -62,26 +62,74 @@ namespace vacationApi.Controllers
                 return NotFound();
             }
 
-            // Oppdater ansattens egenskaper
             existingEmployee.Name = updatedEmployee.Name;
             existingEmployee.Remaining = updatedEmployee.Remaining;
             existingEmployee.CountryCode = updatedEmployee.CountryCode;
 
-            // Oppdater eller legg til ferieoppføringer
             foreach (var updatedEntry in updatedEmployee.VacationEntries)
             {
                 var existingEntry = existingEmployee.VacationEntries.FirstOrDefault(e => e.Id == updatedEntry.Id);
 
                 if (existingEntry != null)
                 {
-                    // Oppdater ferieoppføringens egenskaper
                     _context.Entry(existingEntry).CurrentValues.SetValues(updatedEntry);
                 }
                 else
                 {
-                    // Legg til ny ferieoppføring i den eksisterende ansatte
                     existingEmployee.VacationEntries.Add(updatedEntry);
                 }
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EmployeeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(existingEmployee);
+        }
+        [HttpPut("{id}/vacation/{vid}")]
+        public async Task<IActionResult> PutVacationEntry(long id, long vid, VacationEntry updatedEntry)
+        {
+            if (vid != updatedEntry.Id)
+            {
+                return BadRequest();
+            }
+
+            var existingEmployee = await _context.Employees
+                                                .Include(e => e.VacationEntries)
+                                                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (existingEmployee == null)
+            {
+                return NotFound();
+            }
+
+            VacationEntry existingVacationEntry = null;
+            foreach (VacationEntry entry in existingEmployee.VacationEntries)
+            {
+                if (entry.Id.Equals(vid))
+                {
+                    existingVacationEntry = entry;
+                    VacationEntry mergedEntry = existingVacationEntry;
+                    mergedEntry.Status = updatedEntry.Status;
+                    _context.Entry(existingVacationEntry).CurrentValues.SetValues(mergedEntry);
+                }
+            }
+
+            if (existingVacationEntry == null)
+            {
+                return NotFound();
             }
 
             try
@@ -106,7 +154,7 @@ namespace vacationApi.Controllers
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-      public async Task<IActionResult> PostEmployee(Employee employee)
+        public async Task<IActionResult> PostEmployee(Employee employee)
         {
             if (employee == null)
             {
@@ -126,6 +174,29 @@ namespace vacationApi.Controllers
                 Console.WriteLine($"Feil oppsto ved lagring av Employee: {ex.Message}");
                 return StatusCode(500, "En feil oppstod ved lagring av Employee-data.");
             }
+        }
+
+        [HttpGet("{id}/vacation/{vid}")]
+        public async Task<ActionResult<VacationEntry>> GetVacationEntry(long id, long vid)
+        {
+            var employee = await _context.Employees
+                .Include(e => e.VacationEntries) 
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            foreach (VacationEntry entry in employee.VacationEntries) 
+            {
+                if (entry.Id.Equals(vid))
+                {
+                    return entry;
+                }
+            }
+
+            return NotFound();
         }
 
         // DELETE: api/Employees/5
