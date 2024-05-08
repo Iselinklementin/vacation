@@ -11,7 +11,7 @@ namespace EmployeeApi.Controllers
     [ApiController]
     public class CountryController : ControllerBase
     {
-        private readonly CountryContext _context; // Endre dette til ditt EF DbContext-navn
+        private readonly CountryContext _context; 
 
         public CountryController(CountryContext context)
         {
