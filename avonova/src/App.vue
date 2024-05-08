@@ -1,7 +1,7 @@
 <template>
-  <EmployeeVacations />
+  <EmployeeVacationsTop />
 
-  <div style="background-color: #faf7f6">
+  <div style="background-color: #faf7f6" class="py-6 content">
     <div class="container py-5">
       <TabView>
         <TabPanel header="Oversikt">
@@ -14,41 +14,22 @@
               <template #content>
                 <EmployeeVacationsCreateForm />
               </template>
-              <!-- <template #footer>Custom content</template> -->
             </EmployeeVacationsCreateModal>
           </div>
           <Accordion :activeIndex="0">
             <AccordionTab header="Filter">
-              <p class="m-0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </p>
+              <PlaceholderText />
             </AccordionTab>
           </Accordion>
         </TabPanel>
         <TabPanel header="Feriekalender">
-          <p class="m-0">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-            dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
-            modi.
-          </p>
+          <PlaceholderText />
         </TabPanel>
         <TabPanel header="Ferieoverføring">
-          <p class="m-0">
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-            atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique
-            sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum
-            facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
-            impedit quo minus.
-          </p>
+          <PlaceholderText />
         </TabPanel>
       </TabView>
-      <div class="flex justify-content-between align-items-center my-4">
+      <div class="flex align-items-center my-4 justify-content-between">
         <IconField iconPosition="left">
           <InputIcon class="pi pi-search"> </InputIcon>
           <InputText v-model="value1" placeholder="Search" />
@@ -70,7 +51,6 @@
                     <th>Til dato</th>
                     <th>Status</th>
                     <th>Antall dager</th>
-                    <th>ID</th>
                     <th>Handling</th>
                   </tr>
                 </thead>
@@ -84,16 +64,34 @@
                       </div>
                     </td>
                     <td>{{ employee.remaining }}</td>
-                    <td>{{ getLastVacationId(employee) }}</td>
-                    <td><i class="pi pi-pencil" @click="openModalEdit"></i><i class="pi pi-trash"></i></td>
+                    <td
+                      ><i class="pi pi-pencil" @click="openModalEdit" style="margin-right: 30px"></i
+                      ><i class="pi pi-trash" @click="handleDelete(employee.id, getLastVacationId(employee))"></i
+                    ></td>
                     <EmployeeVacationsCreateModal :isOpen="isModalOpened2" @modal-close="closeModalEdit"
-                      ><template #header>Status</template>
-                      <template #content
-                        ><EditEmployeeStatusVacation
+                      ><template #header>{{ employee.name }}</template>
+                      <template #content>
+                        <div
                           :vacationId="getLastVacationId(employee)"
                           :employeeID="employee.id"
-                        ></EditEmployeeStatusVacation
-                      ></template>
+                          class="pending-vacation-container"
+                        >
+                          <h3
+                            >Status:
+                            <span>{{ getLastVacationStatus(employee) }}</span>
+                          </h3>
+                          <div class="pending-btn-container">
+                            <button @click="rejectVacation(employee.id, getLastVacationId(employee))" class="reject-btn"
+                              >Avvis ferie</button
+                            >
+                            <button
+                              @click="approveVacation(employee.id, getLastVacationId(employee))"
+                              class="approve-btn"
+                              >Godkjenn ferie</button
+                            >
+                          </div>
+                        </div>
+                      </template>
                     </EmployeeVacationsCreateModal>
                   </tr>
                 </tbody>
@@ -104,36 +102,89 @@
       </div>
     </div>
   </div>
+  <Footer />
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { updateVacationStatus, fetchDataFromApi } from "./constants/getApi.js";
+import { defineProps, toRefs } from "vue";
+import { deleteVacationEntry } from "./constants/getApi.js";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
-import EmployeeVacations from "./components/EmployeeVacations";
+import EmployeeVacationsTop from "./components/EmployeeVacationsTop";
 import EmployeeVacationsCreateModal from "./components/EmployeeVacationsCreateModal";
 import EmployeeVacationsCreateForm from "./components/EmployeeVacationsCreateForm";
-import EditEmployeeStatusVacation from "./components/EditEmployeeStatusVacation";
+import Footer from "./components/layout/FooterMenu";
 import InputText from "primevue/inputtext";
-import { fetchData } from "./constants/getApi.js";
+import PlaceholderText from "./components/layout/PlaceholderText.vue";
 
+const props = defineProps({
+  vacationId: {
+    type: Number,
+    required: true,
+  },
+  employeeID: {
+    type: Number,
+    required: true,
+  },
+});
+
+const { vacationId } = toRefs(props);
 const employees = ref([]);
-const countries = ref([]);
-
 const isModalOpened1 = ref(false);
 const isModalOpened2 = ref(false);
+
+const handleDelete = async (eid, vid) => {
+  try {
+    await deleteVacationEntry(eid, vid);
+    console.log("Ferieoppføringen ble avvist og slettet.");
+  } catch (error) {
+    console.error("Feil ved avvisning og sletting av ferieoppføring:", error);
+  }
+  setTimeout(async () => {
+    const { employees: fetchedEmployees } = await fetchDataFromApi();
+    employees.value = fetchedEmployees;
+  }, 500);
+};
+
+const rejectVacation = async (eid, vid) => {
+  try {
+    await deleteVacationEntry(eid, vid);
+    console.log("Ferieoppføringen ble avvist og slettet.");
+  } catch (error) {
+    console.error("Feil ved avvisning og sletting av ferieoppføring:", error);
+  }
+};
+
+const approveVacation = async (eid, vid) => {
+  let status = "Approved";
+  await updateStatus(eid, vid, { status: status, id: vacationId.value });
+};
+
+const updateStatus = async (employeeId, vacationId, updatedEntry) => {
+  try {
+    await updateVacationStatus(employeeId, vacationId, updatedEntry);
+    console.log("Ferieoppføringens status ble oppdatert.");
+  } catch (error) {
+    console.error("Feil ved oppdatering av status:", error);
+  }
+};
 
 const openModalForm = () => {
   isModalOpened1.value = true;
 };
 
-const closeModalForm = () => {
+const closeModalForm = async () => {
   isModalOpened1.value = false;
-  /*  window.location.reload(); */
+  setTimeout(async () => {
+    const { employees: fetchedEmployees } = await fetchDataFromApi();
+    employees.value = fetchedEmployees;
+  }, 500);
 };
 
 const openModalEdit = () => {
@@ -142,23 +193,16 @@ const openModalEdit = () => {
 
 const closeModalEdit = async () => {
   isModalOpened2.value = false;
-  await fetchDataFromApi();
+  setTimeout(async () => {
+    const { employees: fetchedEmployees } = await fetchDataFromApi();
+    employees.value = fetchedEmployees;
+  }, 500);
 };
 
 onMounted(async () => {
-  await fetchDataFromApi();
+  const { employees: fetchedEmployees } = await fetchDataFromApi();
+  employees.value = fetchedEmployees;
 });
-
-async function fetchDataFromApi() {
-  try {
-    const { employees: fetchedEmployees, countries: fetchedCountries } = await fetchData();
-    employees.value = formatEmployees(fetchedEmployees);
-    countries.value = fetchedCountries;
-    console.log(employees.value);
-  } catch (error) {
-    console.error("Error fetching data from API:", error);
-  }
-}
 
 const getLastVacationFrom = (employee) => {
   const lastVacation = employee.vacationEntries[employee.vacationEntries.length - 1];
@@ -204,22 +248,6 @@ const getStatusClass = (status) => {
     rejected: status === "Avvist",
   };
 };
-
-function formatEmployees(employees) {
-  return employees.map((employee) => ({
-    ...employee,
-    vacationEntries: employee.vacationEntries.map((entry) => ({
-      ...entry,
-      from: formatDate(new Date(entry.from)),
-      to: formatDate(new Date(entry.to)),
-    })),
-  }));
-}
-
-function formatDate(date) {
-  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-  return date.toLocaleDateString("en-GB", options);
-}
 </script>
 
 <style>

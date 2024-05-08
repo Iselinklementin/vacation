@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("vacationApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5f06500b43628a4c6e0bc1fd7495f429e57d8f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+110be1b34f038140608894d253e6df97bbcdcb12")]
 [assembly: System.Reflection.AssemblyProductAttribute("vacationApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("vacationApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

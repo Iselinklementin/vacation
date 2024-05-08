@@ -69,3 +69,22 @@
     position: absolute;
   }
 }
+
+.pending-vacation-container {
+  height: 200px;
+
+  .pending-btn-container {
+    .reject-btn {
+      background: red;
+      color: white;
+      border: none;
+      margin-right: 15px;
+    }
+
+    .approve-btn {
+      background: green;
+      color: white;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "vyMhDwxxgnLcymcM358wcm0XqslAgCP7R29r8fn72Yw=",
+  "Source": "vacationApi",
+  "BasePath": "_content/vacationApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "vacationApi/wwwroot",
+      "Source": "vacationApi",
+      "ContentRoot": "/Users/iselinhaugen/Dropbox/vacation/vacationApi/wwwroot/",
+      "BasePath": "_content/vacationApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

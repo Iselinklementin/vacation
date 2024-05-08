@@ -24,8 +24,13 @@ onClickOutside(target, () => emit("modal-close"));
         </div>
         <div class="modal-footer">
           <slot name="footer">
-            <div>
-              <button @click.stop="emit('modal-close')">Lukk</button>
+            <div style="position: relative">
+              <button
+                @click.stop="emit('modal-close')"
+                class="btn-outlined"
+                style="position: absolute; top: -50px; left: 20px"
+                >Lukk</button
+              >
             </div>
           </slot>
         </div>
