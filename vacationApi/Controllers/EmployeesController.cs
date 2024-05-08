@@ -43,7 +43,6 @@ namespace vacationApi.Controllers
         }
 
         // PUT: api/Employees/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         
        [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(long id, Employee updatedEmployee)
@@ -150,7 +149,6 @@ namespace vacationApi.Controllers
             return Ok(employees);
         }
         // POST: api/Employees
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<IActionResult> PostEmployee(Employee employee)
         {
@@ -168,7 +166,6 @@ namespace vacationApi.Controllers
             }
             catch (Exception ex)
             {
-                // Logg unntaket eller utfør annen håndtering her
                 Console.WriteLine($"Feil oppsto ved lagring av Employee: {ex.Message}");
                 return StatusCode(500, "En feil oppstod ved lagring av Employee-data.");
             }
